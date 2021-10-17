@@ -1,2 +1,2 @@
-# vrachtwagens-service
-Vrachtwagens microservice voor project APT 3ITF
+# vrachtwagen-service
+Vrachtwagen microservice voor project APT 3ITF
