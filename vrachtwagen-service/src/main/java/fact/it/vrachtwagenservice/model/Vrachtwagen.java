@@ -22,7 +22,7 @@ public class Vrachtwagen {
         setBouwjaar(bouwjaar);
         setNummerplaat(nummerplaat);
         setBedrijf(bedrijf);
-    }
+
 
     public String getId() {
         return id;

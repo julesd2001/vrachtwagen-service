@@ -30,6 +30,16 @@ public class VrachtwagenController {
         return vrachtwagenRepository.findAll();
     }
 
+    @GetMapping("/vrachtwagens/{bouwjaar}")
+    public List<Vrachtwagen> getVrachtwagensByBouwjaar(@PathVariable String bouwjaar) {
+        return vrachtwagenRepository.findVrachtwagensByBouwjaar(bouwjaar);
+    }
+
+    @GetMapping("/vrachtwagens/{bedrijf}")
+    public List<Vrachtwagen> getVrachtwagensByBedrijf(@PathVariable String bedrijf) {
+        return vrachtwagenRepository.findVrachtwagensByBedrijf(bedrijf);
+    }
+
     @GetMapping("/vrachtwagens/{nummerplaat}")
     public Vrachtwagen getVrachtwagenByNummerplaat(@PathVariable String nummerplaat) {
         return vrachtwagenRepository.findVrachtwagenByNummerplaat(nummerplaat);
@@ -60,7 +70,6 @@ public class VrachtwagenController {
         vrachtwagenRepository.save(vrachtwagen);
         return vrachtwagen;
     }
-
     //kan je de put functie zelfs maken door te zoeken op nummerplaat? geen idee dus ik heb het gewoon op ID voorlopig gelaten hier
     @PutMapping("/vrachtwagens/{id}")
     public Vrachtwagen editVrachtwagen(@RequestBody Vrachtwagen vrachtwagen, @PathVariable String id) {
@@ -88,11 +97,4 @@ public class VrachtwagenController {
     }
 
 
-
-
-
-
-
-
-    
 }

@@ -15,6 +15,4 @@ public interface VrachtwagenRepository extends MongoRepository<Vrachtwagen, Stri
     List<Vrachtwagen> findVrachtwagensByBedrijf(String bedrijf);
     Vrachtwagen findVrachtwagenById(String id);
 
-
-
 }
