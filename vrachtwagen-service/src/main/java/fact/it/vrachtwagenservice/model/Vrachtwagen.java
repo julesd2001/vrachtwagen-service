@@ -6,21 +6,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "vrachtwagens")
 public class Vrachtwagen {
     @Id
-    public String id;
-    public String merk;
-    public String model;
-    public String bouwjaar;
-    public String nummerplaat;
-    public String bedrijf;
+    private String id;
+    private String merk, model, bouwjaar, nummerplaat;
+    //gaan we van bedrijf gewoon een string maken?
+    private String bedrijf;
+
+    public Vrachtwagen() {
+    }
+
 
     public Vrachtwagen(String id, String merk, String model, String bouwjaar, String nummerplaat, String bedrijf) {
-        this.id = id;
-        this.merk = merk;
-        this.model = model;
-        this.bouwjaar = bouwjaar;
-        this.nummerplaat = nummerplaat;
-        this.bedrijf = bedrijf;
-    }
+        setId(id);
+        setMerk(merk);
+        setModel(model);
+        setBouwjaar(bouwjaar);
+        setNummerplaat(nummerplaat);
+        setBedrijf(bedrijf);
+
 
     public String getId() {
         return id;
