@@ -55,16 +55,6 @@ public class VrachtwagenController {
         return vrachtwagenRepository.findVrachtwagensByModel(model);
     }
 
-    @GetMapping("/vrachtwagens/{bouwjaar}")
-    public List<Vrachtwagen> getVrachtwagensByBouwjaar(@PathVariable String bouwjaar) {
-        return vrachtwagenRepository.findVrachtwagensByBouwjaar(bouwjaar);
-    }
-
-    @GetMapping("/vrachtwagens/{bedrijf}")
-    public List<Vrachtwagen> getVrachtwagensByBedrijf(@PathVariable String bedrijf) {
-        return vrachtwagenRepository.findVrachtwagensByBedrijf(bedrijf);
-    }
-
     @PostMapping("/vrachtwagens")
     public Vrachtwagen addVrachtwagen(@RequestBody Vrachtwagen vrachtwagen) {
         vrachtwagenRepository.save(vrachtwagen);
