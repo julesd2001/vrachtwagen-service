@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 public class VrachtwagenController {
@@ -30,27 +31,28 @@ public class VrachtwagenController {
         return vrachtwagenRepository.findAll();
     }
 
-    @GetMapping("/vrachtwagens/{bouwjaar}")
+    @GetMapping("/vrachtwagens/bouwjaar/{bouwjaar}")
     public List<Vrachtwagen> getVrachtwagensByBouwjaar(@PathVariable String bouwjaar) {
         return vrachtwagenRepository.findVrachtwagensByBouwjaar(bouwjaar);
     }
 
-    @GetMapping("/vrachtwagens/{bedrijf}")
+    @GetMapping("/vrachtwagens/bedrijf/{bedrijf}")
     public List<Vrachtwagen> getVrachtwagensByBedrijf(@PathVariable String bedrijf) {
         return vrachtwagenRepository.findVrachtwagensByBedrijf(bedrijf);
     }
 
-    @GetMapping("/vrachtwagens/{nummerplaat}")
+    @GetMapping("/vrachtwagens/nummerplaat/{nummerplaat}")
     public Vrachtwagen getVrachtwagenByNummerplaat(@PathVariable String nummerplaat) {
         return vrachtwagenRepository.findVrachtwagenByNummerplaat(nummerplaat);
     }
 
-    @GetMapping("/vrachtwagens/{merk}")
+    @GetMapping("/vrachtwagens/merk/{merk}")
     public List<Vrachtwagen> getVrachtwagensByMerk(@PathVariable String merk) {
-        return vrachtwagenRepository.findVrachtwagensByMerk(merk);
+        String merkUpper = merk.substring(0,1).toUpperCase() + merk.substring(1);
+        return vrachtwagenRepository.findVrachtwagensByMerk(merkUpper);
     }
 
-    @GetMapping("/vrachtwagens/{model}")
+    @GetMapping("/vrachtwagens/model/{model}")
     public List<Vrachtwagen> getVrachtwagensByModel(@PathVariable String model) {
         return vrachtwagenRepository.findVrachtwagensByModel(model);
     }
@@ -61,9 +63,9 @@ public class VrachtwagenController {
         return vrachtwagen;
     }
     //kan je de put functie zelfs maken door te zoeken op nummerplaat? geen idee dus ik heb het gewoon op ID voorlopig gelaten hier
-    @PutMapping("/vrachtwagens/{id}")
-    public Vrachtwagen editVrachtwagen(@RequestBody Vrachtwagen vrachtwagen, @PathVariable String id) {
-        Vrachtwagen retrievedVrachtwagen = vrachtwagenRepository.findVrachtwagenById(id);
+    @PutMapping("/vrachtwagens/nummerplaat/{nummerplaat}")
+    public Vrachtwagen editVrachtwagen(@RequestBody Vrachtwagen vrachtwagen, @PathVariable String nummerplaat) {
+        Vrachtwagen retrievedVrachtwagen = vrachtwagenRepository.findVrachtwagenByNummerplaat(nummerplaat);
         retrievedVrachtwagen.setMerk(vrachtwagen.getMerk());
         retrievedVrachtwagen.setModel(vrachtwagen.getModel());
         retrievedVrachtwagen.setBouwjaar(vrachtwagen.getBouwjaar());
@@ -74,9 +76,9 @@ public class VrachtwagenController {
         return retrievedVrachtwagen;
     }
     //mogen ID's gebruikt worden in de delete en putmappings of hier ook niet? ik laat het hier voorlopig staan nu
-    @DeleteMapping("/vrachtwagens/{nummerplaat}")
+    @DeleteMapping("/vrachtwagens/nummerplaat/{nummerplaat}")
     public ResponseEntity deleteVrachtwagen(@PathVariable String nummerplaat) {
-        Vrachtwagen vrachtwagen = vrachtwagenRepository.findVrachtwagenById(nummerplaat);
+        Vrachtwagen vrachtwagen = vrachtwagenRepository.findVrachtwagenByNummerplaat(nummerplaat);
         if (vrachtwagen != null) {
             vrachtwagenRepository.delete(vrachtwagen);
             return ResponseEntity.ok().build();

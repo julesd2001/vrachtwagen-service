@@ -5,9 +5,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "vrachtwagens")
 public class Vrachtwagen {
-    @Id
     private String id;
-    private String merk, model, bouwjaar, nummerplaat;
+    @Id
+    private String nummerplaat;
+    private String merk, model, bouwjaar;
     //gaan we van bedrijf gewoon een string maken?
     private String bedrijf;
 

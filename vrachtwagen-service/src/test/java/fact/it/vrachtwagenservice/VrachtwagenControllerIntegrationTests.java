@@ -40,7 +40,7 @@ public class VrachtwagenControllerIntegrationTests {
     private Vrachtwagen v2 = new Vrachtwagen("2", "Renault", "Vrachtwagen", "2020", "1-RTY-555", "Ordina");
     private Vrachtwagen v3 = new Vrachtwagen("3", "DAF", "Betere vrachtwagen", "2018", "1-REZ-345", "Thomas More");
 
-    private Vrachtwagen vDelete = new Vrachtwagen("4", "Test", "test", "2020", "1-ARE-788", "test");
+    private Vrachtwagen vDelete = new Vrachtwagen("4", "Test", "test", "2018", "1-ARE-788", "test");
     private Vrachtwagen v4 = new Vrachtwagen("5", "Renault", "Andere Vrachtwagen", "2020", "1-RGH-444", "The Value Chain");
 
     private ObjectMapper mapper = new ObjectMapper();
@@ -66,7 +66,7 @@ public class VrachtwagenControllerIntegrationTests {
         vrachtwagenList.add(v1);
         vrachtwagenList.add(v2);
 
-        mockMvc.perform(get("/vrachtwagens/{bedrijf}", "Ordina"))
+        mockMvc.perform(get("/vrachtwagens/bedrijf/{bedrijf}", "Ordina"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -79,7 +79,7 @@ public class VrachtwagenControllerIntegrationTests {
 
     @Test
     public void givenVrachtwagen_whenGetVrachtwagenByNummerplaat_thenReturnJsonVrachtwagen() throws Exception {
-        mockMvc.perform(get("/vrachtwagens/{nummerplaat}", "1-IUY-234"))
+        mockMvc.perform(get("/vrachtwagens/nummerplaat/{nummerplaat}", "1-IUY-234"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.merk", is("Volvo")))
@@ -96,7 +96,7 @@ public class VrachtwagenControllerIntegrationTests {
         vrachtwagenList.add(v2);
         vrachtwagenList.add(v4);
 
-        mockMvc.perform(get("/vrachtwagens/{merk}", "Renault"))
+        mockMvc.perform(get("/vrachtwagens/merk/{merk}", "Renault"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -115,7 +115,7 @@ public class VrachtwagenControllerIntegrationTests {
         vrachtwagenList.add(v3);
         vrachtwagenList.add(v4);
 
-        mockMvc.perform(get("/vrachtwagens/{model}", "Vrachtwagen"))
+        mockMvc.perform(get("/vrachtwagens/model/{model}", "Vrachtwagen"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -125,7 +125,6 @@ public class VrachtwagenControllerIntegrationTests {
                 .andExpect(jsonPath("$[0].bedrijf", is("Ordina")))
                 .andExpect(jsonPath("$[0].merk", is("Volvo")));
     }
-
     @Test
     public void givenVrachtwagen_whenGetVrachtwagensByBouwjaar_thenReturnJsonVrachtwagens() throws Exception {
         List<Vrachtwagen> vrachtwagenList = new ArrayList<>();
@@ -134,7 +133,7 @@ public class VrachtwagenControllerIntegrationTests {
         vrachtwagenList.add(v3);
         vrachtwagenList.add(v4);
 
-        mockMvc.perform(get("/vrachtwagens/{bouwjaar}", "2020"))
+        mockMvc.perform(get("/vrachtwagens/bouwjaar/{bouwjaar}", "2020"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -153,9 +152,9 @@ public class VrachtwagenControllerIntegrationTests {
         mockMvc.perform(post("/vrachtwagens")
                 .content(mapper.writeValueAsString(vNew))
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect((ResultMatcher) content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is("5")))
+                .andExpect(jsonPath("$.id", is("6")))
                 .andExpect(jsonPath("$.merk", is("Saab")))
                 .andExpect(jsonPath("$.model", is("Vrachtwagen")))
                 .andExpect(jsonPath("$.bouwjaar", is("2009")))
@@ -165,14 +164,14 @@ public class VrachtwagenControllerIntegrationTests {
 
     @Test
     public void givenVrachtwagen_whenDeleteVrachtwagen_thenStatusOk() throws Exception {
-        mockMvc.perform(delete("/vrachtwagens/{nummerplaat}", "1-ARE-788")
+        mockMvc.perform(delete("/vrachtwagens/nummerplaat/{nummerplaat}", "1-ARE-788")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void givenNoVrachtwagen_whenDeleteVrachtwagen_thenStatusNotFound() throws Exception {
-        mockMvc.perform(delete("/vrachtwagens/{nummerplaat}", "9-POP-567")
+        mockMvc.perform(delete("/vrachtwagens/nummerplaat/{nummerplaat}", "9-POP-567")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
