@@ -30,7 +30,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker Build
-        run: docker build -t ${{ secrets.DOCKER_USER }}/vrachtwagen-service:latest .
+        run: docker build --build-arg JAR_FILE="/target/vrachtwagen-service-0.0.1-SNAPSHOT.jar" -t ${{ secrets.DOCKER_USER }}/vrachtwagen-service:latest .
 
       - name: Upload container to Docker Hub with Push
         run: docker push ${{ secrets.DOCKER_USER }}/vrachtwagen-service:latest
