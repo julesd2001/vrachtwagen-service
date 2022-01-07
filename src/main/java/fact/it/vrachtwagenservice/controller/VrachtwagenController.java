@@ -62,7 +62,7 @@ public class VrachtwagenController {
         vrachtwagenRepository.save(vrachtwagen);
         return vrachtwagen;
     }
-    //kan je de put functie zelfs maken door te zoeken op nummerplaat? geen idee dus ik heb het gewoon op ID voorlopig gelaten hier
+
     @PutMapping("/vrachtwagens/nummerplaat/{nummerplaat}")
     public Vrachtwagen editVrachtwagen(@RequestBody Vrachtwagen vrachtwagen, @PathVariable String nummerplaat) {
         Vrachtwagen retrievedVrachtwagen = vrachtwagenRepository.findVrachtwagenByNummerplaat(nummerplaat);
@@ -75,7 +75,7 @@ public class VrachtwagenController {
         vrachtwagenRepository.save(retrievedVrachtwagen);
         return retrievedVrachtwagen;
     }
-    //mogen ID's gebruikt worden in de delete en putmappings of hier ook niet? ik laat het hier voorlopig staan nu
+
     @DeleteMapping("/vrachtwagens/nummerplaat/{nummerplaat}")
     public ResponseEntity deleteVrachtwagen(@PathVariable String nummerplaat) {
         Vrachtwagen vrachtwagen = vrachtwagenRepository.findVrachtwagenByNummerplaat(nummerplaat);

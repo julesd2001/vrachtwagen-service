@@ -9,7 +9,6 @@ public class Vrachtwagen {
     @Id
     private String nummerplaat;
     private String merk, model, bouwjaar;
-    //gaan we van bedrijf gewoon een string maken?
     private String bedrijf;
 
     public Vrachtwagen() {
