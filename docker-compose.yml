@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  vrachtwagen-database:
+    image: mongo:3.2.4
+    container_name: "vrachtwagen-service"
+    ports:
+      - 27017:27017
+    command: --smallfiles
+  vrachtwagen-api:
+    image: julesd2001/vrachtwagen-service
+    ports:
+      - 9091:8052
+    links:
+      - vrachtwagen-database
