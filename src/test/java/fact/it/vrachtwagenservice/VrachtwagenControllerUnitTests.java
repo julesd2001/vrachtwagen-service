@@ -35,7 +35,6 @@ public class VrachtwagenControllerUnitTests {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-
     @Test
     public void givenVrachtwagen_whenGetVrachtwagensByBedrijf_thenReturnJsonVrachtwagens() throws Exception {
         Vrachtwagen v1 = new Vrachtwagen("1", "Volvo", "Vrachtwagen", "2021", "1-AER-234", "Ordina");
@@ -47,7 +46,7 @@ public class VrachtwagenControllerUnitTests {
         vrachtwagenList.add(v2);
         vrachtwagenList.add(v3);
 
-        given(vrachtwagenRepository.findVrachtwagensByBedrijf("ordina")).willReturn(vrachtwagenList);
+        given(vrachtwagenRepository.findVrachtwagensByBedrijf("Ordina")).willReturn(vrachtwagenList);
 
         mockMvc.perform(get("/vrachtwagens/bedrijf/{bedrijf}", "ordina"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -60,14 +59,19 @@ public class VrachtwagenControllerUnitTests {
                 .andExpect(jsonPath("$[0].bedrijf", is("Ordina")));
     }
 
-    //ik heb geen idee of dit de juiste manier is om een test te schrijven voor als we maar 1 vrachtwagen willen terughalen dus ik laat het voorlopig zo
     @Test
     public void givenVrachtwagen_whenGetVrachtwagenByNummerplaat_thenReturnJsonVrachtwagen() throws Exception {
         Vrachtwagen v1 = new Vrachtwagen("1", "Volvo", "Vrachtwagen", "2021", "1-IUY-234", "Ordina");
-
         given(vrachtwagenRepository.findVrachtwagenByNummerplaat(v1.getNummerplaat())).willReturn(v1);
 
-
+        mockMvc.perform(get("/vrachtwagens/nummerplaat/{nummerplaat}", "1-IUY-234"))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.merk", is("Volvo")))
+                .andExpect(jsonPath("$.model", is("Vrachtwagen")))
+                .andExpect(jsonPath("$.nummerplaat", is("1-IUY-234")))
+                .andExpect(jsonPath("$.bouwjaar", is("2021")))
+                .andExpect(jsonPath("$.bedrijf", is("Ordina")));
     }
 
     @Test

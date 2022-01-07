@@ -38,6 +38,7 @@ public class VrachtwagenController {
 
     @GetMapping("/vrachtwagens/bedrijf/{bedrijf}")
     public List<Vrachtwagen> getVrachtwagensByBedrijf(@PathVariable String bedrijf) {
+        bedrijf = bedrijf.substring(0,1).toUpperCase() + bedrijf.substring(1).toLowerCase();
         return vrachtwagenRepository.findVrachtwagensByBedrijf(bedrijf);
     }
 
