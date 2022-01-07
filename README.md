@@ -40,6 +40,13 @@ Deze request wordt gebruikt om vrachtwagens aan de back-end toe te voegen.
 
 # PUT /vrachtwagens/nummerplaat/{nummerplaat}
 De PUT request gebeurt hier op basis van het nummerplaat van een vrachtwagen, aangezien deze uniek is voor elke vrachtwagen. U geeft hier dus gewoon een nummerplaat mee voor de vrachtwagen die u wilt bewerken.
+![image](https://user-images.githubusercontent.com/57659236/148540812-2e3d053e-a456-46ef-9c3a-08d08d40f0f1.png)
+![image](https://user-images.githubusercontent.com/57659236/148540827-5861d719-231c-4161-8817-5e7fed1a9d3a.png)
+
+
 
 # DELETE /vrachtwagens/nummerplaat/{nummerplaat}
 Ook de DELETE request gebeurt op dezelfde manier. U geeft hier dus de nummerplaat van de vrachtwagen mee die u uit het systeem wilt verwijderen.
+![image](https://user-images.githubusercontent.com/57659236/148540853-3ea41537-5968-4392-95ff-0b663cee0eef.png)
+
+
